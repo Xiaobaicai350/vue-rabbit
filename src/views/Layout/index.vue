@@ -1,15 +1,12 @@
-<template>
-  <div class="test">我是layout</div>
-  <!-- 添加二级路由出口 -->
-  <router-view />
-</template>
-
-<script>
-export default {};
+<script setup>
+import LayoutNav from "./components/LayoutNav.vue";
+import LayoutHeader from "./components/LayoutHeader.vue";
+import LayoutFooter from "./components/LayoutFooter.vue";
 </script>
 
-<style scoped lang="scss">
-.test {
-  color: $priceColor;
-}
-</style>
+<template>
+  <LayoutNav />
+  <LayoutHeader />
+  <RouterView />
+  <LayoutFooter />
+</template>
