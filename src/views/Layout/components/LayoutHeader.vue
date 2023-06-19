@@ -1,16 +1,8 @@
 <script setup>
 // 引入api
-import { getCategoryAPI } from "@/apis/layout";
-import { onMounted, ref } from "vue";
-
-const categoryList = ref([]);
-const getCategory = async () => {
-  const res = await getCategoryAPI();
-  // 赋值
-  categoryList.value = res.result;
-};
-
-onMounted(() => getCategory());
+import { useCategoryStore } from "@/stores/category.js";
+//获取pinia中的数据
+const categoryStore = useCategoryStore();
 </script>
 
 <template>
@@ -21,7 +13,11 @@ onMounted(() => getCategory());
       </h1>
       <ul class="app-header-nav">
         <!-- 遍历list中的数据，渲染列表 -->
-        <li class="home" v-for="item in categoryList" :key="item.id">
+        <li
+          class="home"
+          v-for="item in categoryStore.categoryList"
+          :key="item.id"
+        >
           <RouterLink to="/">{{ item.name }}</RouterLink>
         </li>
       </ul>
