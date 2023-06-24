@@ -8,7 +8,9 @@ const categoryStore = useCategoryStore();
   <div class="home-category">
     <ul class="menu">
       <li v-for="item in categoryStore.categoryList" :key="item.id">
+        <!-- 一级标题 -->
         <RouterLink to="/">{{ item.name }}</RouterLink>
+        <!-- 二级标题，但是只需要显示两个就可以了 -->
         <RouterLink v-for="i in item.children.slice(0, 2)" :key="i" to="/">{{
           i.name
         }}</RouterLink>
@@ -16,6 +18,7 @@ const categoryStore = useCategoryStore();
         <div class="layer">
           <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
           <ul>
+            <!-- 遍历goods信息 -->
             <li v-for="i in item.goods" :key="i.id">
               <RouterLink to="/">
                 <img :src="i.picture" alt="" />
