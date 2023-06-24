@@ -8,5 +8,8 @@ const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
+// 全局指令注册
+import { lazyPlugin } from "@/directives";
+app.use(lazyPlugin);
 
 app.mount("#app");
