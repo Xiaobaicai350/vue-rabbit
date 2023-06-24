@@ -17,6 +17,7 @@ getNewList();
       <ul class="goods-list">
         <li v-for="item in newList" :key="item.id">
           <RouterLink :to="`/detail/${item.id}`">
+            <!-- 这里使用了懒加载 -->
             <img v-img-lazy="item.picture" alt="" />
             <p class="name">{{ item.name }}</p>
             <p class="price">&yen;{{ item.price }}</p>
