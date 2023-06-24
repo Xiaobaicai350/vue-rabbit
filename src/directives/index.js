@@ -14,6 +14,7 @@ export const lazyPlugin = {
           if (isIntersecting) {
             // 进入视口区域
             el.src = binding.value;
+            // 停止监听器
             stop();
           }
         });
