@@ -17,6 +17,7 @@ onMounted(() => {
   <LayoutFixed />
   <LayoutNav />
   <LayoutHeader />
+  <!-- 由缓存问题解决第一种方法 -->
   <RouterView :key="$route.fullPath" />
   <LayoutFooter />
 </template>
