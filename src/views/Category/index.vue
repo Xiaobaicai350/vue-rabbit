@@ -1,39 +1,9 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { getBannerAPI } from "@/apis/home";
-import { useRoute, onBeforeRouteUpdate } from "vue-router";
-import { getTopCategoryAPI } from "@/apis/category";
 import GoodsItem from "../Home/components/GoodsItem.vue";
-const categoryData = ref({});
-// 这里可以获取路由的参数，这里还没引入，注意一下
-const route = useRoute();
-// 这里是给id付了一个初始值，是一种高级的写法，如果
-const getCategory = async (id = route.params.id) => {
-  // 如何在setup中获取路由参数 useRoute() -> route 等价于this.$route
-  const res = await getTopCategoryAPI(id);
-  categoryData.value = res.result;
-};
-// 获取banner
-const bannerList = ref([]);
-
-const getBanner = async () => {
-  const res = await getBannerAPI({
-    distributionSite: "2",
-  });
-  console.log(res);
-  bannerList.value = res.result;
-};
-
-onMounted(() => {
-  getBanner();
-  console.log("这里是category");
-  getCategory();
-});
-// 这里的to对象里面有跳转到指定网址的参数和信息
-onBeforeRouteUpdate((to) => {
-  console.log("hahha路由变化了");
-  getCategory(to.params.id);
-});
+import { useBanner } from "./composables/useBanner";
+import { useCategory } from "./composables/useCategory";
+const { bannerList } = useBanner();
+const { categoryData } = useCategory();
 </script>
 
 <template>
