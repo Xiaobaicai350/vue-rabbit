@@ -44,6 +44,7 @@ const doLogin = () => {
     if (valid) {
       // TODO LOGIN
       await loginAPI({ account, password });
+      // 这里其实很奇怪，不知道为什么登录出错就不执行这个了
       // 1. 提示用户
       ElMessage({ type: "success", message: "登录成功" });
       // 2. 跳转首页
