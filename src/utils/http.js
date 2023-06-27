@@ -1,4 +1,6 @@
 import axios from "axios";
+import { ElMessage } from "element-plus";
+import "element-plus/theme-chalk/el-message.css";
 
 // 创建axios实例
 const httpInstance = axios.create({
@@ -19,6 +21,12 @@ httpInstance.interceptors.request.use(
 httpInstance.interceptors.response.use(
   (res) => res.data,
   (e) => {
+    // 这里通过拦截器的方式，来发送提示信息，
+    // 这个response是拦截到响应码不是200了就会执行这个
+    ElMessage({
+      type: "warning",
+      message: e.response.data.message,
+    });
     return Promise.reject(e);
   }
 );
