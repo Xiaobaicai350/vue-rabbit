@@ -3,8 +3,8 @@ import { ref } from "vue";
 
 // 表单数据对象
 const userInfo = ref({
-  account: "1311111111",
-  password: "123456",
+  account: "heima285",
+  password: "hm#qd@23!",
   agree: true,
 });
 
