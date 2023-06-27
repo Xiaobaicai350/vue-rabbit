@@ -25,9 +25,9 @@ const rules = {
 };
 import { ElMessage } from "element-plus";
 import "element-plus/theme-chalk/el-message.css";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { loginAPI } from "@/apis/user.js";
-const router = useRoute();
+const router = useRouter();
 
 const formRef = ref(null);
 const doLogin = () => {
