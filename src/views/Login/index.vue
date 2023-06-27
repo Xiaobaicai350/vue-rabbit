@@ -28,14 +28,10 @@ import "element-plus/theme-chalk/el-message.css";
 import { useRoute } from "vue-router";
 import { loginAPI } from "@/apis/user.js";
 const router = useRoute();
-const form = ref({
-  account: "",
-  password: "",
-  agree: true,
-});
+
 const formRef = ref(null);
 const doLogin = () => {
-  const { account, password } = form.value;
+  const { account, password } = userInfo.value;
   // 调用实例方法
   formRef.value.validate(async (valid) => {
     // valid: 所有表单都通过校验  才为true
