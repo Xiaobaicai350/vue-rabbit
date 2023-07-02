@@ -1,9 +1,12 @@
 <script setup>
-import GoodsItem from "../Home/components/GoodsItem.vue";
-import { useBanner } from "./composables/useBanner";
-import { useCategory } from "./composables/useCategory";
-const { bannerList } = useBanner();
-const { categoryData } = useCategory();
+
+import GoodsItem from '../Home/components/GoodsItem.vue'
+import { useBanner } from './composables/useBanner'
+import { useCategory } from './composables/useCategory'
+const { bannerList } = useBanner()
+const { categoryData } = useCategory()
+
+
 </script>
 
 <template>
@@ -20,11 +23,10 @@ const { categoryData } = useCategory();
       <div class="home-banner">
         <el-carousel height="500px">
           <el-carousel-item v-for="item in bannerList" :key="item.id">
-            <img :src="item.imgUrl" alt="" />
+            <img :src="item.imgUrl" alt="">
           </el-carousel-item>
         </el-carousel>
       </div>
-      <!--  -->
       <div class="sub-list">
         <h3>全部分类</h3>
         <ul>
@@ -36,11 +38,7 @@ const { categoryData } = useCategory();
           </li>
         </ul>
       </div>
-      <div
-        class="ref-goods"
-        v-for="item in categoryData.children"
-        :key="item.id"
-      >
+      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
         <div class="head">
           <h3>- {{ item.name }}-</h3>
         </div>
@@ -52,17 +50,8 @@ const { categoryData } = useCategory();
   </div>
 </template>
 
+
 <style scoped lang="scss">
-// 部分代码省略
-.home-banner {
-  width: 1240px;
-  height: 500px;
-  margin: 0 auto;
-  img {
-    width: 100%;
-    height: 500px;
-  }
-}
 .top-category {
   h3 {
     font-size: 28px;
@@ -84,6 +73,7 @@ const { categoryData } = useCategory();
       li {
         width: 168px;
         height: 160px;
+
 
         a {
           text-align: center;
@@ -137,6 +127,18 @@ const { categoryData } = useCategory();
 
   .bread-container {
     padding: 25px 0;
+  }
+}
+
+.home-banner {
+  width: 1240px;
+  height: 500px;
+  margin: 0 auto;
+
+
+  img {
+    width: 100%;
+    height: 500px;
   }
 }
 </style>

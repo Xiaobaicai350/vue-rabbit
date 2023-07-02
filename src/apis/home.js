@@ -1,19 +1,19 @@
-/**
- * @description: 获取banner图
- * @param {*}
- * @return {*}
- */
-import httpInstance from "@/utils/http";
-export function getBannerAPI(params = {}) {
+import httpInstance from '@/utils/http'
+
+
+// 获取banner
+
+export function getBannerAPI (params = {}) {
   // 默认为1 商品为2
-  const { distributionSite = "1" } = params;
+  const { distributionSite = '1' } = params
   return httpInstance({
-    url: "/home/banner",
+    url: '/home/banner',
     params: {
-      distributionSite,
-    },
-  });
+      distributionSite
+    }
+  })
 }
+
 /**
  * @description: 获取新鲜好物
  * @param {*}
@@ -21,9 +21,9 @@ export function getBannerAPI(params = {}) {
  */
 export const findNewAPI = () => {
   return httpInstance({
-    url: "/home/new",
-  });
-};
+    url: '/home/new'
+  })
+}
 
 /**
  * @description: 获取人气推荐
@@ -32,9 +32,10 @@ export const findNewAPI = () => {
  */
 export const getHotAPI = () => {
   return httpInstance({
-    url: "home/hot",
-  });
-};
+    url: '/home/hot'
+  })
+}
+
 /**
  * @description: 获取所有商品模块
  * @param {*}
@@ -42,6 +43,6 @@ export const getHotAPI = () => {
  */
 export const getGoodsAPI = () => {
   return httpInstance({
-    url: "/home/goods",
-  });
-};
+    url: '/home/goods'
+  })
+}

@@ -1,22 +1,27 @@
-import { createApp } from "vue";
-import { createPinia } from "pinia";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import App from './App.vue'
+import router from './router'
 
-import App from "./App.vue";
-import router from "./router";
-import "@/styles/common.scss";
-// 导入pinia的持久化插件
-import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
-const app = createApp(App);
+// 引入初始化样式文件
+import '@/styles/common.scss'
+
+// 引入懒加载指令插件并且注册
+import { lazyPlugin } from '@/directives'
 // 引入全局组件插件
-import { componentPlugin } from "@/components";
-const pinia = createPinia();
-// 用pinia的持久化插件
-pinia.use(piniaPluginPersistedstate);
-app.use(componentPlugin);
-app.use(pinia);
-app.use(router);
-// 全局指令注册
-import { lazyPlugin } from "@/directives";
-app.use(lazyPlugin);
+import { componentPlugin } from '@/components'
 
-app.mount("#app");
+const app = createApp(App)
+const pinia = createPinia()
+// 注册持久化插件
+pinia.use(piniaPluginPersistedstate)
+app.use(pinia)
+app.use(router)
+app.use(lazyPlugin)
+app.use(componentPlugin)
+app.mount('#app')
+
+
+
+

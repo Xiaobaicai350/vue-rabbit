@@ -1,34 +1,47 @@
 <script setup>
-import HomePanel from "./HomePanel.vue";
-import { findNewAPI } from "@/apis/home";
-import { ref } from "vue";
-const newList = ref([]);
-const getNewList = async () => {
-  const res = await findNewAPI();
-  newList.value = res.result;
-};
+import HomePanel from './HomePanel.vue'
+import { findNewAPI } from '@/apis/home'
+import { onMounted, ref } from 'vue'
 
-getNewList();
+// 获取数据
+const newList = ref([])
+
+const getNewList = async () => {
+  const res = await findNewAPI()
+  newList.value = res.result
+}
+
+onMounted(() => getNewList())
+
 </script>
 
 <template>
   <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
-    <template #main>
-      <ul class="goods-list">
-        <li v-for="item in newList" :key="item.id">
-          <RouterLink :to="`/detail/${item.id}`">
-            <!-- 这里使用了懒加载 -->
-            <img v-img-lazy="item.picture" alt="" />
-            <p class="name">{{ item.name }}</p>
-            <p class="price">&yen;{{ item.price }}</p>
-          </RouterLink>
-        </li>
-      </ul>
-    </template>
+    <ul class="goods-list">
+      <li v-for="item in newList" :key="item.id">
+        <RouterLink :to="`/detail/${item.id}`">
+          <img :src="item.picture" alt="" />
+          <p class="name">{{ item.name }}</p>
+          <p class="price">&yen;{{ item.price }}</p>
+        </RouterLink>
+      </li>
+    </ul>
   </HomePanel>
+  <!-- 下面是插槽主体内容模版
+  <ul class="goods-list">
+    <li v-for="item in newList" :key="item.id">
+      <RouterLink to="/">
+        <img :src="item.picture" alt="" />
+        <p class="name">{{ item.name }}</p>
+        <p class="price">&yen;{{ item.price }}</p>
+      </RouterLink>
+    </li>
+  </ul>
+  -->
 </template>
 
-<style scoped lang="scss">
+
+<style scoped lang='scss'>
 .goods-list {
   display: flex;
   justify-content: space-between;
@@ -39,7 +52,7 @@ getNewList();
     height: 406px;
 
     background: #f0f9f4;
-    transition: all 0.5s;
+    transition: all .5s;
 
     &:hover {
       transform: translate3d(0, -3px, 0);

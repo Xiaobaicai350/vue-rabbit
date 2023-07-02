@@ -1,23 +1,26 @@
 <script setup>
-import LayoutNav from "./components/LayoutNav.vue";
-import LayoutHeader from "./components/LayoutHeader.vue";
-import LayoutFooter from "./components/LayoutFooter.vue";
-import LayoutFixed from "./components/LayoutFixed.vue";
-//在这里初始化数据
-import { useCategoryStore } from "@/stores/category.js";
-import { onMounted } from "vue";
-const categoryStore = useCategoryStore();
-//注意是在onMounted里面执行初始化的
-onMounted(() => {
-  categoryStore.getCategory();
-});
+
+import LayoutNav from './components/LayoutNav.vue'
+import LayoutHeader from './components/LayoutHeader.vue'
+import LayoutFooter from './components/LayoutFooter.vue'
+import LayoutFixed from './components/LayoutFixed.vue'
+
+// 触发获取导航列表的action
+
+import { useCategoryStore } from '@/stores/categoryStore'
+import { onMounted } from 'vue'
+
+const categoryStore = useCategoryStore()
+
+onMounted(() => categoryStore.getCategory())
 </script>
 
 <template>
   <LayoutFixed />
   <LayoutNav />
   <LayoutHeader />
-  <!-- 由缓存问题解决第一种方法 -->
-  <RouterView :key="$route.fullPath" />
+  <!-- 添加key 破坏复用机制 强制销毁重建 -->
+  <!-- <RouterView :key="$route.fullPath" /> -->
+  <RouterView />
   <LayoutFooter />
 </template>

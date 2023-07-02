@@ -1,42 +1,43 @@
 <script setup>
-import HomePanel from "./HomePanel.vue";
-import { getGoodsAPI } from "@/apis/home";
-import { ref, onMounted } from "vue";
-import GoodsItem from "../components/GoodsItem.vue";
-const goodsProduct = ref([]);
+import HomePanel from './HomePanel.vue'
+import { getGoodsAPI } from '@/apis/home'
+import { onMounted, ref } from 'vue'
+import GoodsItem from './GoodsItem.vue'
+// 获取数据列表
+const goodsProduct = ref([])
 const getGoods = async () => {
-  const { result } = await getGoodsAPI();
-  goodsProduct.value = result;
-};
-onMounted(() => getGoods());
+  const res = await getGoodsAPI()
+  goodsProduct.value = res.result
+}
+onMounted(() => getGoods())
 </script>
 
 <template>
   <div class="home-product">
     <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
-      <template #main>
-        <div class="box">
-          <RouterLink class="cover" to="/">
-            <img v-img-lazy="cate.picture" />
-            <strong class="label">
-              <span>{{ cate.name }}馆</span>
-              <span>{{ cate.saleInfo }}</span>
-            </strong>
-          </RouterLink>
-          <ul class="goods-list">
-            <li v-for="goods in cate.goods" :key="goods.id">
-              <GoodsItem :goods="goods" />
-            </li>
-          </ul>
-        </div>
-      </template>
+      <div class="box">
+        <RouterLink class="cover" to="/">
+          <img v-img-lazy="cate.picture" />
+          <strong class="label">
+            <span>{{ cate.name }}馆</span>
+            <span>{{ cate.saleInfo }}</span>
+          </strong>
+        </RouterLink>
+        <ul class="goods-list">
+          <li v-for="goods in cate.goods" :key="goods.id">
+            <GoodsItem :goods="goods" />
+          </li>
+        </ul>
+      </div>
     </HomePanel>
   </div>
 </template>
-<style scoped lang="scss">
+
+<style scoped lang='scss'>
 .home-product {
   background: #fff;
   margin-top: 20px;
+
   .sub {
     margin-bottom: 2px;
 
@@ -120,41 +121,7 @@ onMounted(() => getGoods());
       }
     }
 
-    .goods-item {
-      display: block;
-      width: 220px;
-      padding: 20px 30px;
-      text-align: center;
-      transition: all 0.5s;
 
-      &:hover {
-        transform: translate3d(0, -3px, 0);
-        box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
-      }
-
-      img {
-        width: 160px;
-        height: 160px;
-      }
-
-      p {
-        padding-top: 10px;
-      }
-
-      .name {
-        font-size: 16px;
-      }
-
-      .desc {
-        color: #999;
-        height: 29px;
-      }
-
-      .price {
-        color: $priceColor;
-        font-size: 20px;
-      }
-    }
   }
 }
 </style>

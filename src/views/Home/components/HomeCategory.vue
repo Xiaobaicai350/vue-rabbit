@@ -1,24 +1,20 @@
 <script setup>
-import { useCategoryStore } from "@/stores/category";
+import { useCategoryStore } from '@/stores/categoryStore'
 
-const categoryStore = useCategoryStore();
+const categoryStore = useCategoryStore()
+
 </script>
 
 <template>
   <div class="home-category">
     <ul class="menu">
       <li v-for="item in categoryStore.categoryList" :key="item.id">
-        <!-- 一级标题 -->
         <RouterLink to="/">{{ item.name }}</RouterLink>
-        <!-- 二级标题，但是只需要显示两个就可以了 -->
-        <RouterLink v-for="i in item.children.slice(0, 2)" :key="i" to="/">{{
-          i.name
-        }}</RouterLink>
+        <RouterLink v-for="i in item.children.slice(0, 2)" :key="i" to="/">{{ i.name }}</RouterLink>
         <!-- 弹层layer位置 -->
         <div class="layer">
           <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
           <ul>
-            <!-- 遍历goods信息 -->
             <li v-for="i in item.goods" :key="i.id">
               <RouterLink to="/">
                 <img :src="i.picture" alt="" />
@@ -37,7 +33,9 @@ const categoryStore = useCategoryStore();
     </ul>
   </div>
 </template>
-<style scoped lang="scss">
+
+
+<style scoped lang='scss'>
 .home-category {
   width: 250px;
   height: 500px;

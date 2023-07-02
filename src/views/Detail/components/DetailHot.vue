@@ -1,44 +1,44 @@
 <script setup>
-import { ref, computed } from "vue";
-import { fetchHotGoodsAPI } from "@/apis/detail";
-import { useRoute } from "vue-router";
+// 以24小时热榜获取数据渲染模版
+import { getHotGoodsAPI } from '@/apis/detail'
+import { computed } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+// 设计props参数 适配不同的title和数据
 
-const goodList = ref([]);
-const route = useRoute();
-// type适配不同类型热榜数据
 const props = defineProps({
-  type: {
-    type: Number, // 1代表24小时热销榜 2代表周热销榜 3代表总热销榜 可以使用type去适配title和数据列表
-    default: 1,
-  },
-});
+  hotType: {
+    type: Number
+  }
+})
 
+// 适配title 1 - 24小时热榜  2-周热榜
+const TYPEMAP = {
+  1: '24小时热榜',
+  2: '周热榜'
+}
+const title = computed(() => TYPEMAP[props.hotType])
+
+// 1. 封装接口
+// 2. 调用接口渲染模版
+const hotList = ref([])
+const route = useRoute()
 const getHotList = async () => {
-  const res = await fetchHotGoodsAPI({
+  const res = await getHotGoodsAPI({
     id: route.params.id,
-    // 这里传入type类型，是为了传参用来区别周榜和日榜
-    type: props.type,
-  });
-  goodList.value = res.result;
-};
-getHotList();
-const TITLEMAP = {
-  1: "24小时热榜",
-  2: "周热榜",
-};
-const title = computed(() => TITLEMAP[props.type]);
+    type: props.hotType
+  })
+  hotList.value = res.result
+}
+onMounted(() => getHotList())
 </script>
+
 
 <template>
   <div class="goods-hot">
     <h3>{{ title }}</h3>
     <!-- 商品区块 -->
-    <RouterLink
-      :to="`/detail/${item.id}`"
-      class="goods-item"
-      v-for="item in goodList"
-      :key="item.id"
-    >
+    <RouterLink to="/" class="goods-item" v-for="item in hotList" :key="item.id">
       <img :src="item.picture" alt="" />
       <p class="name ellipsis">{{ item.name }}</p>
       <p class="desc ellipsis">{{ item.desc }}</p>
@@ -46,6 +46,8 @@ const title = computed(() => TITLEMAP[props.type]);
     </RouterLink>
   </div>
 </template>
+
+
 <style scoped lang="scss">
 .goods-hot {
   h3 {
